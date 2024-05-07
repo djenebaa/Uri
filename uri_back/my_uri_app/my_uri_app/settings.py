@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
-    'media',
+    'content_management',
     'recommendations',
     'user_preferences',
     'user_profiles',

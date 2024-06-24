@@ -21,7 +21,7 @@ from config.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
-    path('accounts', include('authentication.urls')),
+    path('accounts/', include('authentication.urls')),
     path('content_management/', include('content_management.urls')),
     path('recommendations/', include('recommendations.urls')),
     path('profile/', include('user_profile.urls')),

@@ -1,12 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
-
+from .forms import UserCreateForm
 
 def authView(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST or None)
+        form = UserCreateForm(request.POST or None)
         if form.is_valid():
             form.save()
+            return redirect("home")
     else:
-        form = UserCreationForm()
+        form = UserCreateForm()
     return render(request, 'registration/signup.html', {"form": form})

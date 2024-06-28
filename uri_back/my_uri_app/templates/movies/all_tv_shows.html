@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>All TV Shows</h1>
+    <div class="series-list">
+        {% for serie in series %}
+            <div class="serie">
+                <h2>{{ serie.name }}</h2>
+                <p>{{ serie.overview }}</p>
+                <p>Popularity: {{ serie.popularity }}</p>
+                <p>Vote Average: {{ serie.vote_average }}</p>
+                <p>First Air Date: {{ serie.first_air_date }}</p>
+                <img src="https://image.tmdb.org/t/p/w500/{{ serie.poster_path }}" alt="{{ serie.name }}">
+            </div>
+        {% empty %}
+            <p>No TV shows found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

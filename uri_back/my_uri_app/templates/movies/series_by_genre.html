@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Séries TV par genre : {{ genre.name }}</h1>
+    <ul>
+        {% for genre in genres %}
+            <li><a href="{% url 'tv_show_by_genre' genre.id %}">{{ genre.name }}</a></li>
+        {% endfor %}
+    </ul>    
+{% endblock %}

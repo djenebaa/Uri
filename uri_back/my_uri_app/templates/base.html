@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}My Website{% endblock %}</title>
-    <!-- Add any meta tags, CSS links, or other head content here -->
 </head>
 <body>
     <header>
@@ -11,8 +10,7 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
-                {% comment %} <li><a href="{% url 'contact' %}">Contact</a></li> {% endcomment %}
+                <li><a href="{% url 'show_genres' %}">Genre</a></li>
                 {% if user.is_authenticated %}
                 <li>
                     <form method="post" action="{% url 'logout' %}">

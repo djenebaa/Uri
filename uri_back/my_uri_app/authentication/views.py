@@ -1,13 +1,20 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
 from .forms import UserCreateForm
+from django.contrib.auth.decorators import login_required
 
-def authView(request):
+
+@login_required  # This automatically detect is the user is logged in if true redirect to home else it will redirect to login
+def home(request):
+    return render(request, 'home.html', {})
+
+
+def SignUp(request):
     if request.method == "POST":
-        form = UserCreateForm(request.POST or None)
+        form = UserCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect("login")
     else:
         form = UserCreateForm()
     return render(request, 'registration/signup.html', {"form": form})
+

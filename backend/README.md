@@ -1,6 +1,6 @@
 The Backend structure breakdown:
 
-my_uri_app = Containing the backend project 
+backend = Containing the backend project 
 config = Contains the configuration of the app 
 authentication = Login and Singup logic
 content_management = Logic of the content of the website and Api request

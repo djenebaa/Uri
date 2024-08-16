@@ -1,0 +1,15 @@
+{% block content %}
+    <h1>All TV Shows</h1>
+    <div class="series-list">
+        {% for serie in series %}
+            <div class="serie">
+                <h2>{{ serie.title }}</h2>
+                <a href="{% url 'tv_show_details' serie.id %}"> HERE </a>
+                    <img src="https://image.tmdb.org/t/p/w500/{{ serie.poster_path }}" alt="{{ serie.name }}">
+                
+            </div>
+        {% empty %}
+            <p>No TV shows found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

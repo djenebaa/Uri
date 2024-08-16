@@ -1,7 +1,7 @@
 from django.db import models
 from authentication.models import User
 
-class GenreFilm(models.Model):
+class GenreMovie(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -41,11 +41,11 @@ class Serie_TV(models.Model):
     def __str__(self):
         return self.title
 
-class Film(models.Model):
-    film_id = models.IntegerField() 
+class Movie(models.Model):
+    movie_id = models.IntegerField() 
     title = models.CharField(max_length=500, unique=True)
     description = models.TextField(max_length=500)
-    genre = models.ForeignKey(GenreFilm, on_delete=models.CASCADE)
+    genre = models.ForeignKey(GenreMovie, on_delete=models.CASCADE)
     age_limit = models.IntegerField()
     release_date = models.DateField()
     image = models.URLField(max_length=500)

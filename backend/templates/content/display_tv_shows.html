@@ -1,0 +1,32 @@
+{% block content %}
+    <h1>All Shows</h1>
+    <div class="medias-list">
+        {% with user.favorite_set.all as favorites %}
+            {% for media in medias %}
+                <div class="media">
+                    <h2>{{ media.title }}</h2>
+                    <a href="{% url 'media_details' media.id %}">
+                        <img src="https://image.tmdb.org/t/p/w500/{{ media.poster_path }}" alt="{{ media.name }}">
+                    </a>
+                    {% if user.is_authenticated %}
+                        {% if media in favorites %}
+                            <form method="post" action="{% url 'remove_media_from_favorites' media_type='tv_show' media_id=media.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Remove from Favorites</button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{% url 'add_media_to_favorites' media_type='tv_show' media_id=media.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Add to Favorites</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in to add to favorites</a></p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No TV shows found.</p>
+            {% endfor %}
+        {% endwith %}
+    </div>
+{% endblock %}

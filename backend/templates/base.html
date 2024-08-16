@@ -10,7 +10,7 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'show_genres' %}">Genre</a></li>
+                <li><a href="{% url 'show_type_genres' %}">Genre</a></li>
                 {% if user.is_authenticated %}
                 <li>
                     <form method="post" action="{% url 'logout' %}">

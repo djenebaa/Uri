@@ -1,0 +1,13 @@
+{% block content %}
+<h1>SHOW DETAILS</h1>
+    <h1>{{ media.title }}</h1>
+    <p>{{ media.description }}</p>
+    <p>Popularity: {{ media.popularity }}</p>
+    <p>Vote Average: {{ media.vote_average }}</p>
+    <p>First Air Date: {{ media.release_date }}</p>
+    <p>Genre: {{ media.genre.id }}</p>
+    <img src="https://image.tmdb.org/t/p/w500/{{ media.image }}" alt="{{ media.title }}">
+{% endblock %}
+
+
+

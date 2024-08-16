@@ -8,6 +8,7 @@ class GenreFilm(models.Model):
         return self.name
 
 class GenreSerieTV(models.Model):
+    tmdb_id = models.IntegerField(unique=True,null=True)  
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -20,13 +21,13 @@ class GenreAnime(models.Model):
         return self.name
 
 class Serie_TV(models.Model):
-    serie_id = models.IntegerField() 
-    title = models.CharField(max_length=500)
+    external_id = models.IntegerField(null=True) 
+    title = models.CharField(max_length=500, unique=True)
     description = models.TextField(max_length=500)
-    genre = models.ForeignKey(GenreSerieTV, on_delete=models.CASCADE)
-    age_limit = models.IntegerField()
-    release_date = models.DateField()
-    number_of_episodes = models.IntegerField()
+    genre = models.ForeignKey(GenreSerieTV, on_delete=models.CASCADE) # maybe remove on cascade
+    age_limit = models.IntegerField(null=True, blank=True)
+    release_date = models.DateField(null=True, blank=True)
+    number_of_episodes = models.IntegerField(null=True, blank=True)
     image = models.URLField(max_length=500)
     
     STATUS_CHOICES = [
@@ -42,7 +43,7 @@ class Serie_TV(models.Model):
 
 class Film(models.Model):
     film_id = models.IntegerField() 
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=500, unique=True)
     description = models.TextField(max_length=500)
     genre = models.ForeignKey(GenreFilm, on_delete=models.CASCADE)
     age_limit = models.IntegerField()
@@ -60,7 +61,7 @@ class Film(models.Model):
 
 class Anime(models.Model):
     anime_id = models.IntegerField() 
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=500, unique=True)
     description = models.TextField(max_length=500)
     genre = models.ForeignKey(GenreAnime, on_delete=models.CASCADE)
     age_limit = models.IntegerField()

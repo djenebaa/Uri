@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}PROFILEe{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
-<h1>Welcome to your profile!</h1>
+<h1>Welcome to your profile, {{ user.username }}!</h1>
+
+<h2>Your Favorite Media:</h2>
+{% if favorites %}
+    <ul>
+        {% for media in favorites %}
+            <li>
+                <h3>{{ media.title }}</h3>
+                <p>{{ media.description }}</p>
+                <img src="https://image.tmdb.org/t/p/w500/{{ media.image }}" alt="{{ media.title }}">
+                <form method="post" action="{% url 'remove_media_from_favorites' media_type='tv_show' external_id=media.external_id %}">
+                    {% csrf_token %}
+                    <button type="submit">Remove from Favorites</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no favorite media.</p>
+{% endif %}
 
 {% endblock %}

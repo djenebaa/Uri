@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from .forms import UserCreateForm
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 
 @login_required  # This automatically detect is the user is logged in if true redirect to home else it will redirect to login
 def home(request):
@@ -18,3 +18,9 @@ def SignUp(request):
         form = UserCreateForm()
     return render(request, 'registration/signup.html', {"form": form})
 
+@login_required
+def auth_status(request):
+    return JsonResponse({'isAuthenticated': True})
+
+def public_auth_status(request):
+    return JsonResponse({'isAuthenticated': False})

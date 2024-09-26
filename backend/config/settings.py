@@ -131,3 +131,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
 TMDB_API_TOKEN = config('TMDB_API_TOKEN')
+
+if not TMDB_API_TOKEN:
+    raise ValueError("TMDB_API_TOKEN is not set. Please create a .env file with the necessary variables.")

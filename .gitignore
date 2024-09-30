@@ -3,6 +3,7 @@
 
 package-lock.json
 package.json
+yarn.lock
 
 ### Django ###
 *.log

@@ -6,8 +6,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd frontend
+git clone https://github.com/djenebaa/Uri
+cd Uri/frontend
 ```
 
 2. Install the dependencies:

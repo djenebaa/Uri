@@ -45,8 +45,13 @@ export function LogInForm() {
               headers: {
                   'X-CSRFToken': csrfToken, 
               },
+              redirect: 'follow',
           });
-
+          if (response.redirected) {
+            router.push("/home");  
+            return;
+          }
+      
           if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -54,8 +59,6 @@ export function LogInForm() {
           const data = await response.json(); 
           console.log("Login successful:", data);
 
-          
-          router.push("/home");
       } catch (error) {
           console.error("Error during login:", error);
       }

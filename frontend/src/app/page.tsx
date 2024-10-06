@@ -21,20 +21,22 @@ export default function Home() {
 
   useEffect(() => {
     if (isAuthenticated === false) {
-      router.push("authentication/login");
+      router.push("/login");
     }
   }, [isAuthenticated, router]);
 
   return (
-    <div className="">
+    <div className="text-white">
       {isAuthenticated === false ? ( 
         <p>Loading...</p>
       ) : isAuthenticated ? (
         <h1>Welcome back!</h1>
       ) : (
         <div>
-          <h1>Please log in</h1>
-          <a href="authentication/login">Log In</a>
+          <h2>Already have an account ? Log In </h2>
+          <a href="/login">Log In</a>
+          <h2>Else Sign Up</h2>
+          <a href="/signup">Sign Up</a>
         </div>
       )}
     </div>

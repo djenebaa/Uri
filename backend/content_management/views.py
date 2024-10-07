@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from decouple import config
 from content_management.models import Genre, Media
 from user_preferences.models import UserFavoriteContent
-
+from django.http import JsonResponse
 
 @login_required
 def fetch_external_data(request, genre_id=None):
@@ -43,10 +43,6 @@ def fetch_external_data(request, genre_id=None):
             media['external_id'] = media.get('id', None)  
         return render(request, "content/display_tv_shows.html", {"medias": medias})
 
-    else:
-        medias = []
-
-    return render(request, "content/display_tv_shows.html", {"medias": medias})
 
 
 @login_required
@@ -65,7 +61,7 @@ def show_type_genres(request):
     else:
         genres = []
 
-    return render(request, "content/shows_by_genre.html", {"genres": genres})
+    return JsonResponse(genres, safe=False) 
 
 
 @login_required

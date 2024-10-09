@@ -15,20 +15,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
 import { FormEvent } from 'react'
-import { redirect } from "next/dist/server/api-utils";
-import { url } from "inspector";
 import { useRouter } from "next/navigation";
+import { getCsrfToken } from '@/app/utils/crsf';
  
-export function LogInForm() {
+interface LogInFormProps {
+  setIsAuthenticated: (isAuthenticated: boolean) => void; 
+}
+
+export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
     // # Add fetch 
     const router = useRouter(); 
-    async function getCsrfToken() {
-      const response = await fetch("http://localhost:8000/accounts/csrf-token/", {
-          credentials: 'include', 
-      });
-      const data = await response.json();
-      return data.csrfToken;
-   }
+    const csrfToken = getCsrfToken();
     // Handle form submission
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
       event.preventDefault(); 
@@ -48,6 +45,7 @@ export function LogInForm() {
               redirect: 'follow',
           });
           if (response.redirected) {
+            setIsAuthenticated(true);
             router.push("/home");  
             return;
           }

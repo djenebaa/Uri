@@ -1,13 +1,12 @@
 "use client";
 import AuthChecker from "@/components/auth/AuthChecker";
 import { getCsrfToken } from "@/app/utils/crsf";
-import { LogInForm } from "@/components/forms/LogInForms";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useAuth } from "@/components/auth/AuthenticationContext";
 
 export default function Profile() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { isAuthenticated, setIsAuthenticated, setUsername } = useAuth();
 
   const handleLogout = async () => {
     const csrfToken = await getCsrfToken();
@@ -37,7 +36,7 @@ export default function Profile() {
 
   return (
     <div className="text-white">
-      <AuthChecker onAuthStatusChange={setIsAuthenticated} />
+       <AuthChecker />
       {isAuthenticated === null && (
         <div className="flex items-center justify-center h-screen">
           <p className="text-lg">Loading...</p>

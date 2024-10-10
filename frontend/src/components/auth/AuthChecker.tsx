@@ -1,14 +1,10 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth/AuthenticationContext";
 
-interface AuthCheckerProps {
-  onAuthStatusChange: (isAuthenticated: boolean | null) => void;
-}
-
-const AuthChecker: React.FC<AuthCheckerProps> = ({ onAuthStatusChange }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+const AuthChecker: React.FC = () => {
+  const { setIsAuthenticated, setUsername } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -17,15 +13,14 @@ const AuthChecker: React.FC<AuthCheckerProps> = ({ onAuthStatusChange }) => {
         const response = await fetch("http://localhost:8000/accounts/auth-status/", {
           credentials: "include",
         });
-        
+
         if (response.redirected) {
           setIsAuthenticated(false);
-          onAuthStatusChange(false);
           router.push("/login");
         } else {
           const data = await response.json();
           setIsAuthenticated(data.isAuthenticated);
-          onAuthStatusChange(data.isAuthenticated);
+          setUsername(data.username);
         }
       } catch (error) {
         console.error("Error fetching auth status:", error);
@@ -33,7 +28,7 @@ const AuthChecker: React.FC<AuthCheckerProps> = ({ onAuthStatusChange }) => {
     };
 
     checkAuthStatus();
-  }, [router, onAuthStatusChange]);
+  }, [router, setIsAuthenticated, setUsername]);
 
   return null;
 };

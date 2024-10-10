@@ -17,14 +17,15 @@ import { Button } from "@/components/ui/button"
 import { FormEvent } from 'react'
 import { useRouter } from "next/navigation";
 import { getCsrfToken } from '@/app/utils/crsf';
+import { useAuth } from "../auth/AuthenticationContext";
  
 interface LogInFormProps {
   setIsAuthenticated: (isAuthenticated: boolean) => void; 
 }
 
 export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
-    // # Add fetch 
     const router = useRouter(); 
+    const { setUsername } = useAuth();
     const csrfToken = getCsrfToken();
     // Handle form submission
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -44,22 +45,25 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
               },
               redirect: 'follow',
           });
+          
           if (response.redirected) {
             setIsAuthenticated(true);
-            router.push("/home");  
+            router.push("/home");
             return;
           }
-      
-          if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+          if (response.ok) {
+            const data = await response.json(); 
+            setUsername(data.username); 
+            setIsAuthenticated(true);
+            router.push("/home");
+            return;
           }
-
-          const data = await response.json(); 
-          console.log("Login successful:", data);
-
-      } catch (error) {
+    
+      
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        } catch (error) {
           console.error("Error during login:", error);
-      }
+        }
   }
 
     

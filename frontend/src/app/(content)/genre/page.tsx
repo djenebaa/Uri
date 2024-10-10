@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Genre() {
@@ -42,7 +43,10 @@ export default function Genre() {
       <h1>Here are all the genres:</h1>
       <ul>
         {genres.map((genre) => (
-          <li key={genre.id}>{genre.name}</li>
+          <li key={genre.id}>
+
+           <Link href={`/show?id=${genre.id}`}>{genre.name}</Link>
+          </li>
         ))}
       </ul>
     </div>

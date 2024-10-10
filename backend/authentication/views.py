@@ -3,6 +3,7 @@ from .forms import UserCreateForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
+from django.contrib.auth.models import AnonymousUser
 
 
 def get_csrf_token(request):
@@ -25,10 +26,8 @@ def SignUp(request):
     return JsonResponse({"error": "Invalid method"}, status=405)
 
 
-@login_required
 def auth_status(request):
-    return JsonResponse({"isAuthenticated": True})
-
-
-def public_auth_status(request):
-    return JsonResponse({"isAuthenticated": False})
+    if request.user and not isinstance(request.user, AnonymousUser):
+        return JsonResponse({'isAuthenticated': True})
+    else:
+        return JsonResponse({'isAuthenticated': False})

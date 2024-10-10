@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface AuthCheckerProps {
@@ -8,36 +8,32 @@ interface AuthCheckerProps {
 }
 
 const AuthChecker: React.FC<AuthCheckerProps> = ({ onAuthStatusChange }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
-  const checkAuthStatus = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8000/accounts/auth-status/",
-        {
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-      return data.isAuthenticated;
-    } catch (error) {
-      console.error("Error fetching auth status:", error);
-      return null;
-    }
-  };
-
   useEffect(() => {
-    const handleAuth = async () => {
-      const isAuthenticated = await checkAuthStatus();
-      onAuthStatusChange(isAuthenticated);
-
-      if (isAuthenticated === false) {
-        router.push("/login");
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/accounts/auth-status/", {
+          credentials: "include",
+        });
+        
+        if (response.redirected) {
+          setIsAuthenticated(false);
+          onAuthStatusChange(false);
+          router.push("/login");
+        } else {
+          const data = await response.json();
+          setIsAuthenticated(data.isAuthenticated);
+          onAuthStatusChange(data.isAuthenticated);
+        }
+      } catch (error) {
+        console.error("Error fetching auth status:", error);
       }
     };
 
-    handleAuth();
-  }, [onAuthStatusChange, router]);
+    checkAuthStatus();
+  }, [router, onAuthStatusChange]);
 
   return null;
 };

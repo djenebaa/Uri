@@ -15,17 +15,13 @@ export default function Home() {
 
   return (
     <div className="text-white">
-      <AuthChecker onAuthStatusChange={setIsAuthenticated} />
-      {isAuthenticated === false ? (
-        <p>Loading...</p>
-      ) : isAuthenticated ? (
-        <h1>Welcome back!</h1>
-      ) : (
+ 
+    
         <div className="flex space-x-7 m-5 bg-pink-400 w-fit">
           <a href="/login">Log In</a>
           <a href="/signup">Sign Up</a>
         </div>
-      )}
+ 
     </div>
   );
 }

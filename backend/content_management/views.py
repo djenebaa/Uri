@@ -41,7 +41,8 @@ def fetch_external_data(request, genre_id=None):
 
         for media in medias:
             media['external_id'] = media.get('id', None)  
-        return render(request, "content/display_tv_shows.html", {"medias": medias})
+        return JsonResponse(medias, safe=False)
+    
 
 
 

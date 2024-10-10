@@ -14,12 +14,8 @@ export default function Home() {
   }, [isAuthenticated, router]);
 
   return (
-    <div className="text-white">
- 
-    
+<div className="text-white">
         <div className="flex space-x-7 m-5 bg-pink-400 w-fit">
-          <a href="/login">Log In</a>
-          <a href="/signup">Sign Up</a>
         </div>
  
     </div>

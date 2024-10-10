@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from user_preferences.models import UserFavoriteContent
 from content_management.models import Media
+from django.http import JsonResponse
 
 @login_required
 def user_profile(request):
@@ -9,7 +10,5 @@ def user_profile(request):
    
     favorite_media = Media.objects.filter(id__in=[fav.media.id for fav in favorites])
     
-    return render(request, 'user/profile.html', {
-        'user': request.user,
-        'favorites': favorite_media
-    })
+    favorite_media_data = list(favorite_media.values())
+    return JsonResponse(favorite_media_data, safe=False)

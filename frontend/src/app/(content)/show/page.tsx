@@ -11,7 +11,7 @@ interface Genre {
 interface Show {
   id: number;
   name: string;
-  poster_path: string;
+  backdrop_path: string;
   genre_ids: number[];
 }
 
@@ -99,8 +99,8 @@ export default function ShowsByGenre() {
               {show.name}
               <Image
                 src={
-                  show.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${show.poster_path}`
+                  show.backdrop_path
+                    ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
                     : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
                 }
                 width={500}

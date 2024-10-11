@@ -125,9 +125,10 @@ export default function Profile() {
         <h2 className="text-white text-3xl font-bold">Your Top Picks</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+      <section className="m-11 justify-items-center">
+      <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
         {favorites.map((media) => (
-          <li key={media.id} className="list-none text-center">
+          <li key={media.id} className="list-none flex flex-col items-center text-center p-10">
             {media.title}
             <Image
               src={
@@ -138,15 +139,16 @@ export default function Profile() {
               width={500}
               height={500}
               alt={media.title}
+             className="rounded-md w-full h-full bject-contain"
               priority
-              className="my-4"
             />
           </li>
         ))}
-      </div>
+        </ul>
+      </section>
       <button
         onClick={handleLogout}
-        className="mt-4 p-2 bg-slate-600 text-white rounded m-5"
+        className="mt-4 p-2 bg-slate-600 rounded m-5"
       >
         Logout
       </button>

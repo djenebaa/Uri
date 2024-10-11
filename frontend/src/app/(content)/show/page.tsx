@@ -81,14 +81,14 @@ export default function ShowsByGenre() {
 
   return (
     <div className="text-white">
-      <h1>
-        Shows of genre: {currentGenre ? currentGenre.name : "Unknown Genre"}
-      </h1>
 
-      <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
-        <ul>
+      <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
+        <h1 className="text-white text-3xl font-bold"> {currentGenre ? currentGenre.name : "Unknown Genre"} Shows </h1>
+      </div>
+      <section className="m-11 justify-items-center">
+      <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
           {shows.map((show) => (
-            <li key={show.id}>
+            <li key={show.id} className="list-none text-center">
               {show.name}
               <Image
                 src={
@@ -99,13 +99,13 @@ export default function ShowsByGenre() {
                 width={500}
                 height={500}
                 alt={show.name}
-                className="image-class"
+                className="rounded-md"
                 priority
               />
             </li>
           ))}
         </ul>
-      </div>
+      </section>
     </div>
   );
 }

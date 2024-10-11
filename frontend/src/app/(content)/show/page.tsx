@@ -85,13 +85,7 @@ export default function ShowsByGenre() {
         Shows of genre: {currentGenre ? currentGenre.name : "Unknown Genre"}
       </h1>
 
-      <div
-        style={{
-          display: "grid",
-          gridGap: "8px",
-          gridTemplateColumns: "repeat(auto-fit, minmax(400px, auto))",
-        }}
-      >
+      <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
         <ul>
           {shows.map((show) => (
             <li key={show.id}>

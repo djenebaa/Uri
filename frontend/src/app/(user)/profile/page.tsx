@@ -11,16 +11,13 @@ interface FavoriteMedia {
   id: number;
   title: string;
   image: string;
-
 }
-
 
 export default function Profile() {
   const router = useRouter();
   const { isAuthenticated, setIsAuthenticated, setUsername } = useAuth();
   const [favorites, setFavorites] = useState<FavoriteMedia[]>([]);
   const [loading, setLoading] = useState(true);
-
 
   const handleLogout = async () => {
     const csrfToken = await getCsrfToken();
@@ -49,10 +46,13 @@ export default function Profile() {
   // Fetch user's favorite media
   const fetchFavorites = async () => {
     try {
-      const response = await fetch('http://localhost:8000/profile/user/favorites', {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:8000/profile/user/favorites",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch user favorites");
@@ -60,7 +60,7 @@ export default function Profile() {
 
       const data = await response.json();
       console.log("DATA FAV", data);
-      
+
       setFavorites(data);
     } catch (error) {
       console.error("Error fetching user favorites:", error);
@@ -75,11 +75,10 @@ export default function Profile() {
   if (loading) return <p>Loading...</p>;
   if (favorites.length === 0) return <p>No favorite media found.</p>;
 
-
   return (
     <div className="text-white">
-       <AuthChecker />
-       <ProfileBanner />
+      <AuthChecker />
+      {/* <ProfileBanner /> */}
       {isAuthenticated === null && (
         <div className="flex items-center justify-center h-screen">
           <p className="text-lg">Loading...</p>
@@ -101,47 +100,56 @@ export default function Profile() {
 
       {isAuthenticated === true && (
         <>
-          <h1>Welcome to your Profile</h1>
-          <button
-            onClick={handleLogout}
-            className="mt-4 p-2 bg-slate-600 text-white rounded"
-          >
-            Logout
-          </button>
-        </>
-      )}
-      
-
-      <h1>Your Favorite Media</h1>
-      <div
-        style={{
-          display: "grid",
-          gridGap: "8px",
-          gridTemplateColumns: "repeat(auto-fit, minmax(400px, auto))",
-        }}
-      >
-        <ul>
-          {favorites.map((media) => (
-            <li key={media.id}>
-              {media.title}
+          <section className="flex flex-col md:flex-row items-center">
+           <div className="flex-1 pr-3 p-10">
+              <h1>Welcome to your Profile</h1>
+              <p>
+               Here you can keep track of your top picks.
+              </p>
+            </div>
+            <div className="flex-1 hidden md:block">
               <Image
-                src={
-                  media.image
-                    ? `https://image.tmdb.org/t/p/w500${media.image}`
-                    : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
-                }
+                src={"/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"}
                 width={500}
                 height={500}
-                alt={media.title}
-                className="image-class"
+                alt="default image city at night"
+                className="w-full h-auto"
                 priority
               />
-            </li>
-          ))}
-        </ul>
+            </div>
+          </section>
+        </>
+      )}
+
+      <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
+        <h2 className="text-white text-3xl font-bold">Your Top Picks</h2>
       </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+        {favorites.map((media) => (
+          <li key={media.id} className="list-none text-center">
+            {media.title}
+            <Image
+              src={
+                media.image
+                  ? `https://image.tmdb.org/t/p/w500${media.image}`
+                  : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
+              }
+              width={500}
+              height={500}
+              alt={media.title}
+              priority
+              className="my-4"
+            />
+          </li>
+        ))}
+      </div>
+      <button
+        onClick={handleLogout}
+        className="mt-4 p-2 bg-slate-600 text-white rounded m-5"
+      >
+        Logout
+      </button>
     </div>
-  
-    
   );
 }

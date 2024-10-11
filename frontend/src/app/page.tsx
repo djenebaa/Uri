@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthChecker from "@/components/auth/AuthChecker";
-import Banner from "@/components/banner/DisplayBanner";
+import HomeBanner from "@/components/banner/HomeBanner";
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -15,6 +15,6 @@ export default function Home() {
   }, [isAuthenticated, router]);
 
   return <div className="">
-    <Banner/>
+    <HomeBanner/>
   </div>;
 }

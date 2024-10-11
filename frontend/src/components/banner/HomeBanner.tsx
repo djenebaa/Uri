@@ -18,7 +18,7 @@ interface Show {
   first_air_date: string;
 }
 
-export default function Banner() {
+export default function HomeBanner() {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);

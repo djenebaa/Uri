@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthenticationContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import ProfileBanner from "@/components/banner/ProfileBanner";
 
 interface FavoriteMedia {
   id: number;
@@ -78,6 +79,7 @@ export default function Profile() {
   return (
     <div className="text-white">
        <AuthChecker />
+       <ProfileBanner />
       {isAuthenticated === null && (
         <div className="flex items-center justify-center h-screen">
           <p className="text-lg">Loading...</p>

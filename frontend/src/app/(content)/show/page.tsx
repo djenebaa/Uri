@@ -40,7 +40,6 @@ export default function ShowsByGenre() {
 
       const data = await response.json();
       setShows(data);
-      console.log("DATA SHOW", data[0]);
     } catch (error) {
       console.error("Error fetching genres:", error);
     } finally {

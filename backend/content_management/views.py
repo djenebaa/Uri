@@ -93,18 +93,18 @@ def show_media_details(request, external_id):
                 },
             )
         else:
-            # Redirect or show an error if the external fetch also fails
-            return render(request, "not_found.html", {"message": "Show not found."})
+            # Handle API errors and show the error
+            return JsonResponse({"error": "Media not found on TMDb"}, status=response.status_code)
 
     is_favorite = UserFavoriteContent.objects.filter(
         user=request.user, media=media, media_type="tv_show"
     ).exists()
 
-    return render(
-        request,
-        "content/content_details.html",
-        {
-            "media": media,
+    return JsonResponse({
+        "media": {
+            "title": media.title,
+            "description": media.description,
+            "image": media.image,
             "favorites": is_favorite,
-        },
-    )
+        }
+    })

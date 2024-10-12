@@ -14,7 +14,7 @@ import { useEffect } from "react"
 interface Show {
     id: number;
     name: string;
-    backdrop_path: string;
+    poster_path: string;
   }
 
   
@@ -73,8 +73,8 @@ export default function ProfileBanner() {
                   <CardContent className="flex aspect-square items-center justify-center p-6">
                     <img
                       src={
-                        show.backdrop_path
-                          ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
+                        show.poster_path
+                          ? `https://image.tmdb.org/t/p/w500${show.poster_path}`
                           :  "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
                       }
                       alt={show.name}

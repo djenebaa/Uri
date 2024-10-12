@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Genre() {
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
@@ -25,27 +26,33 @@ export default function Genre() {
       setGenres(data);
     } catch (error) {
       console.error("Error fetching genres:", error);
-    }
-    finally {
-      setLoading(false); 
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
   if (loading) {
-    return <p className="text-white">Loading...</p>; 
+    return <p className="text-white">Loading...</p>;
   }
 
   return (
     <div className="text-white">
-      <h1>Here are all the genres:</h1>
-      <ul>
+      <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
+        <h1 className="text-white text-3xl font-bold">Explore shows by choosing a genre</h1>
+      </div>
+  
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {genres.map((genre) => (
-          <li key={genre.id}>
-
-           <Link href={`/show?id=${genre.id}`}>{genre.name}</Link>
+          <li key={genre.id} className="list-none flex flex-col items-center text-center">
+            <Link href={`/show?id=${genre.id}`}>
+              <div className="relative w-[300px] h-[200px] rounded-md bg-gray-900 flex items-center justify-center mx-auto m-5">
+                <p className="text-lg font-bold text-white">{genre.name}</p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

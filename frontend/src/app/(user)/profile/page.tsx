@@ -139,7 +139,7 @@ export default function Profile() {
               width={500}
               height={500}
               alt={media.title}
-             className="rounded-md w-full h-full bject-contain"
+             className="rounded-md w-full h-full"
               priority
             />
           </li>

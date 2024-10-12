@@ -13,11 +13,11 @@ function NavBar() {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/genre">Genre</Link>
+          <Link href="/genre">Genres</Link>
         </li>
-          <li>
+          {/* <li>
             <Link href="/login">Login</Link>
-          </li>
+          </li> */}
       </ul>
       {isAuthenticated === true && (
         <ul>

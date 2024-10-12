@@ -14,9 +14,42 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
+import { useState } from "react";
 
 
 export function SignUpForm() {
+    const [username, setUsername] = useState(""); // State for username
+    const [email, setEmail] = useState(""); // State for email
+    const [password, setPassword] = useState(""); // State for password
+    const [passwordConfirmation, setPasswordConfirmation] = useState(""); // State for password confirmation
+    const [error, setError] = useState(""); // State for error messages
+  
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+      event.preventDefault(); // Prevent default form submission
+  
+      const response = await fetch("http://localhost:8000/accounts/signup/", { // Replace with your actual signup URL
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Set content type for JSON
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          password_confirmation: passwordConfirmation,
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message); // Handle successful signup response
+        // Optionally redirect or show a success message
+      } else {
+        const errorData = await response.json();
+        setError(errorData.errors || "An error occurred."); // Display error messages
+      }
+    };
+  
   return (
     <div className="w-full max-w-md">
       <form>

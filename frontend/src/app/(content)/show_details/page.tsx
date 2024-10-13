@@ -2,6 +2,8 @@
 import { useAuth } from "@/components/auth/AuthenticationContext";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import LikeButton from "@/components/like_dislike/LikeButton";
 
 interface Media {
   id: any;
@@ -14,13 +16,11 @@ interface Media {
   popularity: string;
 }
 
-import { useRouter } from "next/router";
-import LikeButton from "@/components/like_dislike/LikeButton";
-
 const ShowDetails = () => {
   const searchParams = useSearchParams();
   const media_id = searchParams.get("media_id");
   const [mediaDetails, setMediaDetails] = useState<Media | null>(null);
+  const router = useRouter(); 
 
   useEffect(() => {
     const fetchMediaDetails = async () => {
@@ -76,6 +76,28 @@ const ShowDetails = () => {
           <LikeButton initialIsFavorited={true} />
         </div>
       </div>
+      <button 
+        onClick={() => router.back()}
+        className="flex items-center px-4 py-2 m-2 bg-pink-500 rounded hover:bg-pink-600 transition"
+      >
+         <svg
+          width="13"
+          height="13"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="mr-2" 
+        >
+          <path
+            d="M30 16H2M2 16L16 30M2 16L16 2"
+            stroke="#ffffff"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+         Return to the list
+      </button>
     </div>
   );
 };

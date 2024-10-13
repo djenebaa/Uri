@@ -82,28 +82,49 @@ export default function ShowsByGenre() {
 
   return (
     <div className="text-white">
-
       <div className="bg-gray-800 w-full py-4 mx-auto text-center mb-8">
         <h1 className="text-white text-3xl font-bold"> {currentGenre ? currentGenre.name : "Unknown Genre"} Shows </h1>
       </div>
+      <Link
+        href="/genre"
+        className="flex items-center px-4 py-2 m-2 w-fit bg-pink-500 rounded hover:bg-pink-600 transition"
+      >
+           <svg
+          width="13"
+          height="13"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="mr-2" 
+        >
+          <path
+            d="M30 16H2M2 16L16 30M2 16L16 2"
+            stroke="#ffffff"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Return to the list of genres
+      </Link>
       <section className="m-11 justify-items-center">
-      <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
+        <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {shows.map((show) => (
             <li key={show.id} className="list-none text-center">
-               <Link href={`/show_details?media_id=${show.id}`}>
-              {show.name}
-              <Image
-                src={
-                  show.backdrop_path
-                    ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
-                    : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
-                }
-                width={500}
-                height={500}
-                alt={show.name}
-                className="rounded-md"
-                priority
-              />
+              <Link href={`/show_details?media_id=${show.id}`}>
+                {show.name}
+                <Image
+                  src={
+                    show.backdrop_path
+                      ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
+                      : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
+                  }
+                  width={500}
+                  height={500}
+                  alt={show.name}
+                  className="rounded-md"
+                  priority
+                />
               </Link>
             </li>
           ))}

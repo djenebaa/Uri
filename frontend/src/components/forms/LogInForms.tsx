@@ -48,14 +48,14 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
           
           if (response.redirected) {
             setIsAuthenticated(true);
-            router.push("/home");
+            router.push("/");
             return;
           }
           if (response.ok) {
             const data = await response.json(); 
             setUsername(data.username); 
             setIsAuthenticated(true);
-            router.push("/home");
+            router.push("/");
             return;
           }
     

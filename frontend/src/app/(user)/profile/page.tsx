@@ -73,7 +73,7 @@ export default function Profile() {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (favorites.length === 0) return <p>No favorite media found.</p>;
+
 
   return (
     <div className="text-white">
@@ -120,32 +120,35 @@ export default function Profile() {
           </section>
         </>
       )}
-
       <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
         <h2 className="text-white text-3xl font-bold">Your Top Picks</h2>
       </div>
 
       <section className="m-11 justify-items-center">
-      <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
-        {favorites.map((media) => (
-          <li key={media.id} className="list-none flex flex-col items-center text-center p-10">
-            {media.title}
-            <Image
-              src={
-                media.image
-                  ? `https://image.tmdb.org/t/p/w500${media.image}`
-                  : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
-              }
-              width={500}
-              height={500}
-              alt={media.title}
-             className="rounded-md w-full h-full"
-              priority
-            />
-          </li>
-        ))}
-        </ul>
-      </section>
+            {favorites.length === 0 ? (
+                <p>No favorites here.</p> 
+            ) : (
+                <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
+                    {favorites.map((media) => (
+                        <li key={media.id} className="list-none flex flex-col items-center text-center p-10">
+                            {media.title}
+                            <Image
+                                src={
+                                    media.image
+                                        ? `https://image.tmdb.org/t/p/w500${media.image}`
+                                        : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
+                                }
+                                width={500}
+                                height={500}
+                                alt={media.title}
+                                className="rounded-md w-full h-full"
+                                priority
+                            />
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </section>
       <button
         onClick={handleLogout}
         className="mt-4 p-2 bg-slate-600 rounded m-5"

@@ -41,7 +41,7 @@ export default function Genre() {
 
   return (
     <div className="text-white">
-      <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
+      <div className="bg-gray-800 w-full py-4 mx-auto text-center mb-8">
         <h1 className="text-white text-3xl font-bold">Explore shows by choosing a genre</h1>
       </div>
   
@@ -49,7 +49,7 @@ export default function Genre() {
         {genres.map((genre) => (
           <li key={genre.id} className="list-none flex flex-col items-center text-center">
             <Link href={`/show?id=${genre.id}`}>
-              <div className="relative w-[300px] h-[200px] rounded-md bg-gray-900 flex items-center justify-center mx-auto m-5">
+              <div className="relative w-[300px] h-[200px] rounded-md bg-gray-900 flex items-center justify-center mx-auto m-5 hover:bg-pink-600">
                 <p className="text-lg font-bold text-white">{genre.name}</p>
               </div>
             </Link>

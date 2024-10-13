@@ -83,7 +83,7 @@ export default function ShowsByGenre() {
   return (
     <div className="text-white">
 
-      <div className="bg-gray-800 w-full py-4 rounded-md mx-auto text-center mb-8">
+      <div className="bg-gray-800 w-full py-4 mx-auto text-center mb-8">
         <h1 className="text-white text-3xl font-bold"> {currentGenre ? currentGenre.name : "Unknown Genre"} Shows </h1>
       </div>
       <section className="m-11 justify-items-center">

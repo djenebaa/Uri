@@ -15,6 +15,7 @@ interface Media {
 }
 
 import { useRouter } from "next/router";
+import LikeButton from "@/components/like/LikeButton";
 
 const ShowDetails = () => {
   const searchParams = useSearchParams();
@@ -69,6 +70,7 @@ const ShowDetails = () => {
           <p className="text-lg">First air date: {mediaDetails.first_air_date}</p>
           <p className="text-lg">Number of Episodes: {mediaDetails.number_of_episodes}</p>
           <p className="text-lg">Status: {mediaDetails.status}</p>
+          <LikeButton />
         </div>
       </div>
     </div>

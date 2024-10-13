@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthenticationContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import ProfileBanner from "@/components/banner/ProfileBanner";
+// import ProfileBanner from "@/components/banner/ProfileBanner";
+import Link from "next/link";
 
 interface FavoriteMedia {
   id: number;
   title: string;
   image: string;
+  external_id: number;
 }
 
 export default function Profile() {
@@ -131,7 +133,8 @@ export default function Profile() {
                 <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
                     {favorites.map((media) => (
                         <li key={media.id} className="list-none flex flex-col items-center text-center p-10">
-                            {media.title}
+                          <Link href={`/show_details?media_id=${media.external_id}`}>
+                          {media.title}
                             <Image
                                 src={
                                     media.image
@@ -144,6 +147,7 @@ export default function Profile() {
                                 className="rounded-md w-full h-full"
                                 priority
                             />
+                          </Link>
                         </li>
                     ))}
                 </ul>

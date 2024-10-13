@@ -89,7 +89,9 @@ def show_media_details(request, external_id):
                     "number_of_episodes": data.get("number_of_episodes", 0),
                     "image": data.get("poster_path", ""),
                     "status": "Ongoing",
-                    "media_type": "tv_show",  # Set default media_type here
+                    "popularity": data.get("popularity", 0),
+                    "first_air_date": data.get("first_air_date", "1900-01-01"),
+                    "media_type": "tv_show", 
                 },
             )
         else:
@@ -105,6 +107,11 @@ def show_media_details(request, external_id):
             "title": media.title,
             "description": media.description,
             "image": media.image,
-            "favorites": is_favorite,
+            "first_air_date": media.first_air_date,  
+            "number_of_episodes": media.number_of_episodes,
+            "status": media.status,
+            "popularity": media.popularity,  
+            "is_favorite": is_favorite, 
+            "release_date": media.release_date,
         }
     })

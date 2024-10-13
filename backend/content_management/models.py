@@ -22,7 +22,9 @@ class Media(models.Model):
     release_date = models.DateField(null=True, blank=True)
     number_of_episodes = models.IntegerField(null=True, blank=True)  # Nullable for Movies
     image = models.URLField(max_length=500)
-
+    popularity = models.FloatField(null=True, blank=True)
+    first_air_date = models.DateField(null=True, blank=True)
+    
     status = models.CharField(max_length=20, choices=[
         ('Ongoing', 'Ongoing'),
         ('Completed', 'Completed'),

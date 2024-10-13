@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 // import ProfileBanner from "@/components/banner/ProfileBanner";
 import Link from "next/link";
+import DislikeButton from "@/components/like_dislike/DislikeButton";
 
 interface FavoriteMedia {
   id: number;
   title: string;
   image: string;
   external_id: number;
+  isFavorited: boolean;
 }
 
 export default function Profile() {
@@ -75,7 +77,10 @@ export default function Profile() {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-
+  const handleRemoveFavorite = (mediaId: number) => {
+    //  Filter and create a new array without the one removed
+    setFavorites(favorites.filter((media) => media.external_id !== mediaId));
+  };
 
   return (
     <div className="text-white">
@@ -103,11 +108,9 @@ export default function Profile() {
       {isAuthenticated === true && (
         <>
           <section className="flex flex-col md:flex-row items-center">
-           <div className="flex-1 pr-3 p-10">
+            <div className="flex-1 pr-3 p-10">
               <h1>Welcome to your Profile</h1>
-              <p>
-               Here you can keep track of your top picks.
-              </p>
+              <p>Here you can keep track of your top picks.</p>
             </div>
             <div className="flex-1 hidden md:block">
               <Image
@@ -127,32 +130,40 @@ export default function Profile() {
       </div>
 
       <section className="m-11 justify-items-center">
-            {favorites.length === 0 ? (
-                <p>No favorites here.</p> 
-            ) : (
-                <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
-                    {favorites.map((media) => (
-                        <li key={media.id} className="list-none flex flex-col items-center text-center p-10">
-                          <Link href={`/show_details?media_id=${media.external_id}`}>
-                          {media.title}
-                            <Image
-                                src={
-                                    media.image
-                                        ? `https://image.tmdb.org/t/p/w500${media.image}`
-                                        : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
-                                }
-                                width={500}
-                                height={500}
-                                alt={media.title}
-                                className="rounded-md w-full h-full"
-                                priority
-                            />
-                          </Link>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </section>
+        {favorites.length === 0 ? (
+          <p>No favorites here.</p>
+        ) : (
+          <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {favorites.map((media) => (
+              <li
+                key={media.id}
+                className="list-none flex flex-col items-center text-center p-10"
+              >
+                <Link href={`/show_details?media_id=${media.external_id}`}>
+                  {media.title}
+                  <Image
+                    src={
+                      media.image
+                        ? `https://image.tmdb.org/t/p/w500${media.image}`
+                        : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
+                    }
+                    width={500}
+                    height={500}
+                    alt={media.title}
+                    className="rounded-md w-full h-full"
+                    priority
+                  />
+                </Link>
+                <DislikeButton 
+                  initialIsFavorited={media.isFavorited} 
+                  media_id={media.external_id}
+                  onRemoveFavorite={handleRemoveFavorite} 
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
       <button
         onClick={handleLogout}
         className="mt-4 p-2 bg-slate-600 rounded m-5"

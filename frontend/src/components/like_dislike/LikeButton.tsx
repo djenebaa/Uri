@@ -3,8 +3,12 @@ import { useSearchParams } from "next/navigation";
 import { getCsrfToken } from "@/app/utils/crsf";
 import { useAuth } from "@/components/auth/AuthenticationContext";
 
-const FavoriteButton = () => {
-  const [isFavorited, setIsFavorited] = useState(false);
+interface FavoriteButtonProps {
+  initialIsFavorited: boolean; 
+}
+
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ initialIsFavorited }) => {
+  const [isFavorited, setIsFavorited] = useState(initialIsFavorited);
   const searchParams = useSearchParams();
   const media_id = searchParams.get("media_id");
   const [csrfToken, setCsrfToken] = useState("");
@@ -89,14 +93,14 @@ const FavoriteButton = () => {
       {isAuthenticated ? (
         isFavorited ? (
           <button onClick={handleRemoveFromFavorites}>
-            ❌ Retirer des favoris
+            ❌ Remove from Favorites
           </button>
         ) : (
-          <button onClick={handleAddToFavorites}>❤️ Ajouter aux favoris</button>
+          <button onClick={handleAddToFavorites}>❤️ Add to Favorites</button>
         )
       ) : (
         <button disabled>
-          Veuillez vous connecter pour ajouter ou retirer des favoris.
+          Please log in to add or remove favorites.
         </button>
       )}
     </div>

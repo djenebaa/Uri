@@ -15,7 +15,7 @@ interface Media {
 }
 
 import { useRouter } from "next/router";
-import LikeButton from "@/components/like/LikeButton";
+import LikeButton from "@/components/like_dislike/LikeButton";
 
 const ShowDetails = () => {
   const searchParams = useSearchParams();
@@ -41,7 +41,6 @@ const ShowDetails = () => {
           const data = await response.json();
           setMediaDetails(data.media);
           console.log(data.media);
-          
         } catch (error) {
           console.error("Error fetching media details:", error);
         }
@@ -52,7 +51,7 @@ const ShowDetails = () => {
   }, [media_id]);
 
   if (!mediaDetails) {
-    return <p>Loading...</p>; 
+    return <p>Loading...</p>;
   }
 
   return (
@@ -64,13 +63,17 @@ const ShowDetails = () => {
           alt={mediaDetails.title}
           className="w-48 h-auto rounded-md shadow-md"
         />
-        <div className="ml-4 mt-4"> 
-        <p className="text-gray-300 mb-4">{mediaDetails.description}</p>
+        <div className="ml-4 mt-4">
+          <p className="text-gray-300 mb-4">{mediaDetails.description}</p>
           <p className="text-lg">Popularity: {mediaDetails.popularity}</p>
-          <p className="text-lg">First air date: {mediaDetails.first_air_date}</p>
-          <p className="text-lg">Number of Episodes: {mediaDetails.number_of_episodes}</p>
+          <p className="text-lg">
+            First air date: {mediaDetails.first_air_date}
+          </p>
+          <p className="text-lg">
+            Number of Episodes: {mediaDetails.number_of_episodes}
+          </p>
           <p className="text-lg">Status: {mediaDetails.status}</p>
-          <LikeButton />
+          <LikeButton initialIsFavorited={true} />
         </div>
       </div>
     </div>

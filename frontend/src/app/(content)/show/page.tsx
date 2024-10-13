@@ -3,6 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 interface Genre {
   id: number;
   name: string;
@@ -63,7 +65,6 @@ export default function ShowsByGenre() {
       }
 
       const data = await response.json();
-
       setGenres(data);
     } catch (error) {
       console.error("Error fetching genres:", error);
@@ -89,6 +90,7 @@ export default function ShowsByGenre() {
       <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
           {shows.map((show) => (
             <li key={show.id} className="list-none text-center">
+               <Link href={`/show_details?media_id=${show.id}`}>
               {show.name}
               <Image
                 src={
@@ -102,6 +104,7 @@ export default function ShowsByGenre() {
                 className="rounded-md"
                 priority
               />
+              </Link>
             </li>
           ))}
         </ul>

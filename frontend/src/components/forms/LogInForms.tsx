@@ -14,10 +14,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
-import { FormEvent } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
-import { getCsrfToken } from '@/app/utils/crsf';
+import { getCsrfToken } from "@/app/utils/crsf";
 import { useAuth } from "../auth/AuthenticationContext";
+
  
 interface LogInFormProps {
   setIsAuthenticated: (isAuthenticated: boolean) => void; 
@@ -26,13 +27,19 @@ interface LogInFormProps {
 export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
     const router = useRouter(); 
     const { setUsername } = useAuth();
-    const csrfToken = getCsrfToken();
+    const [csrfToken, setCsrfToken] = useState("");
+
+    useEffect(() => {
+      const fetchCsrfToken = async () => {
+        const token = await getCsrfToken();
+        setCsrfToken(token);
+      };
+      fetchCsrfToken();
+    }, []);
     // Handle form submission
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
       event.preventDefault(); 
       const form = event.currentTarget
-    
-      const csrfToken = await getCsrfToken();
       const formData = new FormData(form); 
       
       try {

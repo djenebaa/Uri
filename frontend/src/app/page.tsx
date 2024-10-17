@@ -1,22 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useEffect, useState } from "react";
+// import { useRouter } from "next/navigation";
 import AuthChecker from "@/components/auth/AuthChecker";
 import HomeBanner from "@/components/banner/HomeBanner";
 import Link from "next/link";
 
 export default function Home() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const router = useRouter();
+  // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      router.push("/login");
-    }
-  }, [isAuthenticated, router]);
+  // useEffect(() => {
+  //   if (isAuthenticated === false) {
+  //     router.push("/login");
+  //   }
+  // }, [isAuthenticated, router]);
 
   return (
     <div className="min-h-screen text-white bg-gray-900 p-6">
+       <AuthChecker />
       <h1 className="text-4xl font-extrabold text-center py-6">
         Discover amazing shows by exploring different genres!
       </h1>

@@ -19,7 +19,7 @@ interface FavoriteMedia {
 
 export default function Profile() {
   const router = useRouter();
-  const { isAuthenticated, setIsAuthenticated, setUsername } = useAuth();
+  const { isAuthenticated, setIsAuthenticated} = useAuth();
   const [favorites, setFavorites] = useState<FavoriteMedia[]>([]);
   const [loading, setLoading] = useState(true);
 

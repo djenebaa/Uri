@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ interface Show {
   genre_ids: number[];
 }
 
-export default function ShowsByGenre() {
+function ShowsByGenre() {
   const searchParams = useSearchParams();
 
   const genre_id = searchParams.get("id");
@@ -133,4 +133,12 @@ export default function ShowsByGenre() {
       </section>
     </div>
   );
+}
+
+export default function Searchbar() {
+  return (
+    <Suspense>
+      <ShowsByGenre />
+    </Suspense>
+  )
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LikeButton from "@/components/like_dislike/LikeButton";
 import Image from "next/image";
@@ -104,4 +104,10 @@ const ShowDetails = () => {
   );
 };
 
-export default ShowDetails;
+export default function Searchbar() {
+  return (
+    <Suspense>
+      <ShowDetails />
+    </Suspense>
+  )
+}

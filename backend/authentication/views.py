@@ -35,7 +35,7 @@ def SignUp(request):
 def auth_status(request):
     if request.user.is_authenticated:
         return JsonResponse(
-            {"isAuthenticated": True, "username": request.user.username}
+            {"isAuthenticated": True, "username": request.user.username}, status=200
         )
     else:
-        return JsonResponse({"isAuthenticated": False})
+        return JsonResponse({"isAuthenticated": False}, status=200)

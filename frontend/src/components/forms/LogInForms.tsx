@@ -109,7 +109,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link className="underline ml-2" href="signup">
             Sign Up
           </Link>

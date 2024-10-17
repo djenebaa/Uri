@@ -8,7 +8,6 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from "@/components/ui/carousel";
 
 interface Show {
@@ -20,7 +19,7 @@ interface Show {
 }
 
 export default function HomeBanner() {
-  const [api, setApi] = useState<CarouselApi | null>(null);
+  // const [api, setApi] = useState<CarouselApi | null>(null);
   // const [current, setCurrent] = useState(0);
   // const [count, setCount] = useState(0);
   const [shows, setShows] = useState<Show[]>([]);
@@ -89,7 +88,7 @@ export default function HomeBanner() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <Carousel setApi={setApi} className="w-full max-w-2xl">
+      <Carousel className="w-full max-w-2xl">
         <CarouselContent>
           {shows.length > 0 ? (
             shows.map((show) => (

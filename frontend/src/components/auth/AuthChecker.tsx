@@ -10,17 +10,19 @@ const AuthChecker: React.FC = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:8000/accounts/auth-status/", {
-          credentials: "include",
-        });
-
-        if (response.redirected) {
-          setIsAuthenticated(false);
-          router.push("/login");
-        } else {
-          const data = await response.json();
-          setIsAuthenticated(data.isAuthenticated);
+        const response = await fetch(
+          "http://localhost:8000/accounts/auth-status/",
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        if (data.isAuthenticated) {
+          setIsAuthenticated(true);
           setUsername(data.username);
+        } else {
+          setIsAuthenticated(false);
+          // router.push("/login");
         }
       } catch (error) {
         console.error("Error fetching auth status:", error);

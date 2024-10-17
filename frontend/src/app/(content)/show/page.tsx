@@ -26,6 +26,7 @@ export default function ShowsByGenre() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
   const fetchTvShow = async () => {
     try {
       const response = await fetch(
@@ -71,7 +72,7 @@ export default function ShowsByGenre() {
     }
   };
 
-  useEffect(() => {
+  
     fetchTvShow();
     fetchGenres();
   }, [genre_id]);

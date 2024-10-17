@@ -6,6 +6,12 @@ export default function LogInRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   return (
-    <LogInForm setIsAuthenticated={setIsAuthenticated} />
+    <>
+      {isAuthenticated ? (
+        <p>Welcome back!</p>
+      ) : (
+        <LogInForm setIsAuthenticated={setIsAuthenticated} />
+      )}
+    </>
   );
 }

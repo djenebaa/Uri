@@ -67,7 +67,7 @@ Create a `.env` file in the root of the project with the following variables:
 
 2. Build and run the Docker containers:
     ```bash
-     docker-compose up --build -d
+     docker compose up --build -d
     ```
 
 3. To stop the containers, use:

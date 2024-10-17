@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,7 +26,8 @@ export default function ShowsByGenre() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchTvShow = async () => {
+  const fetchTvShow = useCallback (async () => {
+    if (!genre_id) return;
     try {
       const response = await fetch(
         `http://localhost:8000/content_management/external-media/${genre_id}/`,
@@ -47,10 +48,10 @@ export default function ShowsByGenre() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [genre_id])
 
   // Fetch the genre type
-  const fetchGenres = async () => {
+  const fetchGenres = useCallback (async () => {
     try {
       const response = await fetch(
         `http://localhost:8000/content_management/show_type_genres/`,
@@ -69,12 +70,13 @@ export default function ShowsByGenre() {
     } catch (error) {
       console.error("Error fetching genres:", error);
     }
-  };
+  }, []);
 
+ 
   useEffect(() => {
     fetchTvShow();
     fetchGenres();
-  }, [genre_id]);
+  }, [fetchTvShow, fetchGenres]);
 
   if (loading) return <p>Loading...</p>;
   if (shows.length === 0) return <p>No shows available.</p>;

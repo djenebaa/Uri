@@ -32,8 +32,6 @@ class BaseTest(TestCase):
             'password2': 'differentpassword'
         }
 
-        return super().setUp()
-
 class SignUpTest(BaseTest):
 
     def test_can_register_user(self):

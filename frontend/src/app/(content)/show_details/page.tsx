@@ -1,13 +1,12 @@
 "use client";
-// import { useAuth } from "@/components/auth/AuthenticationContext";
+import { useAuth } from "@/components/auth/AuthenticationContext";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LikeButton from "@/components/like_dislike/LikeButton";
-import Image from "next/image";
 
 interface Media {
-  id: number;
+  id: any;
   title: string;
   description: string;
   first_air_date: string;
@@ -59,15 +58,8 @@ const ShowDetails = () => {
     <div className="container mx-auto p-4 text-white bg-gray-800 rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold mb-2">{mediaDetails.title}</h1>
       <div className="flex items-start">
-
-        <Image
-          src={
-            mediaDetails.image
-            ? `https://image.tmdb.org/t/p/w500${mediaDetails.image}`
-            : "/picture/ian-valerio-CAFq0pv9HjY-unsplash.jpg"
-          }
-          width={500}
-          height={500}
+        <img
+          src={`https://image.tmdb.org/t/p/w500/${mediaDetails.image}`}
           alt={mediaDetails.title}
           className="w-48 h-auto rounded-md shadow-md"
         />

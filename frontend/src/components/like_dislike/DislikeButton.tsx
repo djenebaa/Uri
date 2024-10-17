@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { getCsrfToken } from "@/app/utils/crsf";
 import { useAuth } from "@/components/auth/AuthenticationContext";
 
@@ -14,6 +15,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
     onRemoveFavorite,
   }) => {
   const [isDisliked, setIsDisliked] = useState(initialIsFavorited);
+  const searchParams = useSearchParams();
   const [csrfToken, setCsrfToken] = useState("");
   const { isAuthenticated } = useAuth();
 
@@ -70,7 +72,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
     const data = await response.json();
     if (data.success) {
       setIsDisliked(true);
-      onRemoveFavorite(media_id);
+      onRemoveFavorite(media_id); 
     }
   };
 
@@ -86,11 +88,6 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
       </button>
       ) : (
         <button disabled>Please log in to remove favorites.</button>
-      )}
-      {isDisliked && (
-        <p className={`mt-2 text-white transition-opacity duration-300 opacity-100`}>
-          This show was removed from your list.
-        </p>
       )}
     </div>
   );

@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
 import { getCsrfToken } from "@/app/utils/crsf";
 import { FormEvent } from 'react'
-import { useRouter } from "next/navigation";
 
 interface ErrorMessages {
   username?: string;
@@ -35,8 +34,7 @@ export function SignUpForm() {
     const [error, setError] = useState<string | null>(null); 
     const [csrfToken, setCsrfToken] = useState("");
     const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});;
-    const router = useRouter(); 
-    
+
     useEffect(() => {
       const fetchCsrfToken = async () => {
         const token = await getCsrfToken();
@@ -87,7 +85,6 @@ export function SignUpForm() {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
-        router.push('/')
         // return data
       } else {
         const errorData = await response.json();

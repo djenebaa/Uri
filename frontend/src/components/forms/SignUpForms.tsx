@@ -13,10 +13,10 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { getCsrfToken } from "@/app/utils/crsf";
-import { FormEvent } from 'react'
+import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 interface ErrorMessages {
@@ -28,72 +28,75 @@ interface ErrorMessages {
 }
 
 export function SignUpForm() {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState(""); 
-    const [password1, setPassword1] = useState("");
-    const [password2, setPassword2Confirmation] = useState(""); 
-    const [error, setError] = useState<string | null>(null); 
-    const [csrfToken, setCsrfToken] = useState("");
-    const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});;
-    const router = useRouter()
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2Confirmation] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState("");
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});
+  const router = useRouter();
 
-    useEffect(() => {
-      const fetchCsrfToken = async () => {
-        const token = await getCsrfToken();
-        setCsrfToken(token);
-      };
-      fetchCsrfToken();
-    }, []);
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const token = await getCsrfToken();
+      setCsrfToken(token);
+    };
+    fetchCsrfToken();
+  }, []);
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault(); 
-      const form = event.currentTarget
-      const formData = new FormData(form); 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-      const validateForm = () => {
-        const errors: ErrorMessages = {};
-        if (username.trim() === "") {
-          errors.username = "Username is required.";
-        }
-        if (email.trim() === "") {
-          errors.email = "Email is required.";
-        }
-        if (password1.trim().length < 6) {
-          errors.password1 = "Password must be at least 6 characters long.";
-        }
-        if (password1 !== password2) {
-          errors.password2 = "Passwords must match.";
-        }
-        return errors;
-      };
-
-      const validationErrors = validateForm();
-      if (Object.keys(validationErrors).length > 0) {
-        setErrorMessages(validationErrors);
-        return; 
-      } else {
-        setErrorMessages({}); 
+    const validateForm = () => {
+      const errors: ErrorMessages = {};
+      if (username.trim() === "") {
+        errors.username = "Username is required.";
       }
+      if (email.trim() === "") {
+        errors.email = "Email is required.";
+      }
+      if (password1.trim().length < 6) {
+        errors.password1 = "Password must be at least 6 characters long.";
+      }
+      if (password1 !== password2) {
+        errors.password2 = "Passwords must match.";
+      }
+      return errors;
+    };
 
-      const response = await fetch("http://localhost:8000/accounts/signup/", { 
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+      return;
+    } else {
+      setErrorMessages({});
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/accounts/signup/`,
+      {
         method: "POST",
         headers: {
-           'X-CSRFToken': csrfToken, 
+          "X-CSRFToken": csrfToken,
         },
         body: formData,
-        credentials: 'include', 
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
-        router.push('/login')
-      } else {
-        const errorData = await response.json();
-        setError(errorData.errors || "An error occurred."); // Display error messages
+        credentials: "include",
       }
-    };
-  
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      router.push("/login");
+    } else {
+      const errorData = await response.json();
+      setError(errorData.errors || "An error occurred."); // Display error messages
+    }
+  };
+
   return (
     <div className="w-full max-w-md">
       <form onSubmit={handleSubmit}>
@@ -114,7 +117,7 @@ export function SignUpForm() {
                 placeholder="Enter a username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-              />   
+              />
               {errorMessages.username && (
                 <p className="text-red-500">{errorMessages.username}</p>
               )}
@@ -126,10 +129,10 @@ export function SignUpForm() {
                 name="email"
                 type="email"
                 placeholder="name@example.com"
-                 value={email}
-                onChange={(e) => setEmail(e.target.value)} 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-               {errorMessages.email && (
+              {errorMessages.email && (
                 <p className="text-red-500">{errorMessages.email}</p>
               )}
             </div>
@@ -144,7 +147,7 @@ export function SignUpForm() {
                 value={password1}
                 onChange={(e) => setPassword1(e.target.value)}
               />
-               {errorMessages.password1 && (
+              {errorMessages.password1 && (
                 <p className="text-red-500">{errorMessages.password1}</p>
               )}
             </div>
@@ -158,7 +161,7 @@ export function SignUpForm() {
                 value={password2}
                 onChange={(e) => setPassword2Confirmation(e.target.value)}
               />
-               {errorMessages.password2 && (
+              {errorMessages.password2 && (
                 <p className="text-red-500">{errorMessages.password2}</p>
               )}
             </div>
@@ -167,7 +170,7 @@ export function SignUpForm() {
             <Button> Register </Button>
           </CardFooter>
         </Card>
-         {error && <p className="text-red-500 mt-2">{error}</p>} 
+        {error && <p className="text-red-500 mt-2">{error}</p>}
         <div className="mt-4 text-center text-sm">
           Have an account?
           <Link className="underline ml-2" href="/login">

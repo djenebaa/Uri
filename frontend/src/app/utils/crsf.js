@@ -1,5 +1,5 @@
 export const getCsrfToken = async () => {
-    const response = await fetch("http://localhost:8000/accounts/csrf-token/", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/accounts/csrf-token/`, {
       credentials: 'include',
     });
     const data = await response.json();

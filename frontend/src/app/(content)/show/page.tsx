@@ -27,52 +27,51 @@ function ShowsByGenre() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const fetchTvShow = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8000/content_management/external-media/${genre_id}/`,
-        {
-          method: "GET",
-          credentials: "include",
+    const fetchTvShow = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/content_management/external-media/${genre_id}/`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch genres");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch genres");
+        const data = await response.json();
+        setShows(data);
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const data = await response.json();
-      setShows(data);
-    } catch (error) {
-      console.error("Error fetching genres:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Fetch the genre type
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/content_management/show_type_genres/`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
-  // Fetch the genre type
-  const fetchGenres = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8000/content_management/show_type_genres/`,
-        {
-          method: "GET",
-          credentials: "include",
+        if (!response.ok) {
+          throw new Error("Failed to fetch genres");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch genres");
+        const data = await response.json();
+        setGenres(data);
+      } catch (error) {
+        console.error("Error fetching genres:", error);
       }
+    };
 
-      const data = await response.json();
-      setGenres(data);
-    } catch (error) {
-      console.error("Error fetching genres:", error);
-    }
-  };
-
-  
     fetchTvShow();
     fetchGenres();
   }, [genre_id]);
@@ -84,19 +83,22 @@ function ShowsByGenre() {
   return (
     <div className="text-white">
       <div className="bg-gray-800 w-full py-4 mx-auto text-center mb-8">
-        <h1 className="text-white text-3xl font-bold"> {currentGenre ? currentGenre.name : "Unknown Genre"} Shows </h1>
+        <h1 className="text-white text-3xl font-bold">
+          {" "}
+          {currentGenre ? currentGenre.name : "Unknown Genre"} Shows{" "}
+        </h1>
       </div>
       <Link
         href="/genre"
         className="flex items-center px-4 py-2 m-2 w-fit bg-pink-500 rounded hover:bg-pink-600 transition"
       >
-           <svg
+        <svg
           width="13"
           height="13"
           viewBox="0 0 32 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="mr-2" 
+          className="mr-2"
         >
           <path
             d="M30 16H2M2 16L16 30M2 16L16 2"
@@ -140,5 +142,5 @@ export default function Searchbar() {
     <Suspense>
       <ShowsByGenre />
     </Suspense>
-  )
+  );
 }

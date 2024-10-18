@@ -28,7 +28,7 @@ export default function HomeBanner() {
   const fetchLastShowOfAllGenre = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/content_management/show_type_genres/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/content_management/show_type_genres/`,
         {
           method: "GET",
           credentials: "include",
@@ -39,29 +39,35 @@ export default function HomeBanner() {
         throw new Error("Failed to fetch genres");
       }
 
-      const genres = await response.json(); 
+      const genres = await response.json();
 
-      const promises = genres.map(async (genre: { id: number; name: string }) => {
-        const showResponse = await fetch(
-          `http://localhost:8000/content_management/external-media/${genre.id}/`,
-          {
-            method: "GET",
-            credentials: "include",
+      const promises = genres.map(
+        async (genre: { id: number; name: string }) => {
+          const showResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/content_management/external-media/${genre.id}/`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+
+          if (!showResponse.ok) {
+            throw new Error("Failed to fetch shows");
           }
-        );
 
-        if (!showResponse.ok) {
-          throw new Error("Failed to fetch shows");
+          const shows = await showResponse.json();
+          shows.sort(
+            (a: Show, b: Show) =>
+              new Date(b.first_air_date).getTime() -
+              new Date(a.first_air_date).getTime()
+          );
+
+          if (shows.length > 0) {
+            return { ...shows[0], genre: genre.name };
+          }
+          return null;
         }
-
-        const shows = await showResponse.json();
-        shows.sort((a: Show, b: Show) => new Date(b.first_air_date).getTime() - new Date(a.first_air_date).getTime());
-
-        if (shows.length > 0) {
-          return { ...shows[0], genre: genre.name };
-        }
-        return null;
-      });
+      );
       //  Check is the show was successfully fetched
       const lastShows = await Promise.all(promises);
       // This filter to only keep value that are not null, This is needed to avoid rendering errors
@@ -76,7 +82,6 @@ export default function HomeBanner() {
   useEffect(() => {
     fetchLastShowOfAllGenre();
   }, []);
-
 
   // useEffect(() => {
   //   if (api) {
@@ -107,7 +112,10 @@ export default function HomeBanner() {
                     className="w-full h-auto"
                     priority
                   />
-                  <h3 className="mt-2 text-center text-white"> {show.name} - {show.genre}</h3>
+                  <h3 className="mt-2 text-center text-white">
+                    {" "}
+                    {show.name} - {show.genre}
+                  </h3>
                 </div>
               </CarouselItem>
             ))

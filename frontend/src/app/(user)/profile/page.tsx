@@ -19,20 +19,23 @@ interface FavoriteMedia {
 
 export default function Profile() {
   const router = useRouter();
-  const { isAuthenticated, setIsAuthenticated} = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [favorites, setFavorites] = useState<FavoriteMedia[]>([]);
   const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
     const csrfToken = await getCsrfToken();
     try {
-      const response = await fetch("http://localhost:8000/accounts/logout/", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "X-CSRFToken": csrfToken,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/accounts/logout/`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+        }
+      );
       if (response.ok) {
         setIsAuthenticated(false);
         router.push("/login");
@@ -51,7 +54,7 @@ export default function Profile() {
   const fetchFavorites = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/profile/user/favorites",
+        `${process.env.NEXT_PUBLIC_API_URL}/profile/user/favorites`,
         {
           method: "GET",
           credentials: "include",
@@ -154,10 +157,10 @@ export default function Profile() {
                     priority
                   />
                 </Link>
-                <DislikeButton 
-                  initialIsFavorited={media.isFavorited} 
+                <DislikeButton
+                  initialIsFavorited={media.isFavorited}
                   media_id={media.external_id}
-                  onRemoveFavorite={handleRemoveFavorite} 
+                  onRemoveFavorite={handleRemoveFavorite}
                 />
               </li>
             ))}

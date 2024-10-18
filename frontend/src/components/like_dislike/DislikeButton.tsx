@@ -5,14 +5,14 @@ import { useAuth } from "@/components/auth/AuthenticationContext";
 interface RemoveFavoriteButtonProps {
   initialIsFavorited: boolean;
   media_id: number;
-  onRemoveFavorite: (mediaId: number) => void; 
+  onRemoveFavorite: (mediaId: number) => void;
 }
 
 const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
-    initialIsFavorited,
-    media_id,
-    onRemoveFavorite,
-  }) => {
+  initialIsFavorited,
+  media_id,
+  onRemoveFavorite,
+}) => {
   const [isDisliked, setIsDisliked] = useState(initialIsFavorited);
   const [csrfToken, setCsrfToken] = useState("");
   const { isAuthenticated } = useAuth();
@@ -29,7 +29,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
       const checkFavoriteStatus = async () => {
         try {
           const response = await fetch(
-            `http://localhost:8000/user_preferences/check_favorite_status/tv_show/${media_id}/`,
+            `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/check_favorite_status/tv_show/${media_id}/`,
             {
               credentials: "include",
             }
@@ -57,7 +57,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
     }
 
     const response = await fetch(
-      `http://localhost:8000/user_preferences/remove/tv_show/${media_id}/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/remove/tv_show/${media_id}/`,
       {
         method: "POST",
         credentials: "include",
@@ -70,20 +70,20 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
     const data = await response.json();
     if (data.success) {
       setIsDisliked(true);
-      onRemoveFavorite(media_id); 
+      onRemoveFavorite(media_id);
     }
   };
 
   return (
     <div>
       {isAuthenticated ? (
-        <button 
-        onClick={handleRemoveFromFavorites} 
-        className="flex items-center justify-center bg-pink-500 text-white font-semibold py-2 px-4 rounded-md transition duration-200 hover:bg-pink-600"
-      >
-        {/* <span className="mr-2">❌</span>  */}
-        Remove from favorites
-      </button>
+        <button
+          onClick={handleRemoveFromFavorites}
+          className="flex items-center justify-center bg-pink-500 text-white font-semibold py-2 px-4 rounded-md transition duration-200 hover:bg-pink-600"
+        >
+          {/* <span className="mr-2">❌</span>  */}
+          Remove from favorites
+        </button>
       ) : (
         <button disabled>Please log in to remove favorites.</button>
       )}

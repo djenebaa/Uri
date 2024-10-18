@@ -13,67 +13,67 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button"
-import { FormEvent, useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCsrfToken } from "@/app/utils/crsf";
 import { useAuth } from "../auth/AuthenticationContext";
 
- 
 interface LogInFormProps {
-  setIsAuthenticated: (isAuthenticated: boolean) => void; 
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
-export function LogInForm({ setIsAuthenticated }: LogInFormProps ) {
-    const router = useRouter(); 
-    const { setUsername } = useAuth();
-    const [csrfToken, setCsrfToken] = useState("");
+export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
+  const router = useRouter();
+  const { setUsername } = useAuth();
+  const [csrfToken, setCsrfToken] = useState("");
 
-    useEffect(() => {
-      const fetchCsrfToken = async () => {
-        const token = await getCsrfToken();
-        setCsrfToken(token);
-      };
-      fetchCsrfToken();
-    }, []);
-    // Handle form submission
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-      event.preventDefault(); 
-      const form = event.currentTarget
-      const formData = new FormData(form); 
-      
-      try {
-          const response = await fetch("http://localhost:8000/accounts/login/", {
-              method: 'POST',
-              body: formData,
-              credentials: 'include', 
-              headers: {
-                  'X-CSRFToken': csrfToken, 
-              },
-              redirect: 'follow',
-          });
-          
-          if (response.redirected) {
-            setIsAuthenticated(true);
-            router.push("/");
-            return;
-          }
-          if (response.ok) {
-            const data = await response.json(); 
-            setUsername(data.username); 
-            setIsAuthenticated(true);
-            router.push("/");
-            return;
-          }
-    
-      
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        } catch (error) {
-          console.error("Error during login:", error);
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const token = await getCsrfToken();
+      setCsrfToken(token);
+    };
+    fetchCsrfToken();
+  }, []);
+  // Handle form submission
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/accounts/login/`,
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+          redirect: "follow",
         }
+      );
+
+      if (response.redirected) {
+        setIsAuthenticated(true);
+        router.push("/");
+        return;
+      }
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.username);
+        setIsAuthenticated(true);
+        router.push("/");
+        return;
+      }
+
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   }
 
-    
   return (
     <div className="w-full max-w-md">
       <form onSubmit={onSubmit}>

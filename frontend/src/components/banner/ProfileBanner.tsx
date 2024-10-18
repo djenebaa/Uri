@@ -17,7 +17,6 @@
 //     poster_path: string;
 //   }
 
-  
 // export default function ProfileBanner() {
 //   const [api, setApi] = React.useState<CarouselApi>()
 //   const [current, setCurrent] = React.useState(0)
@@ -27,7 +26,7 @@
 //   const fetchUserFavorites = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:8000/profile/user/favorites/`, 
+//         `${process.env.NEXT_PUBLIC_API_URL}/profile/user/favorites/`,
 //         {
 //           method: "GET",
 //           credentials: "include",
@@ -39,14 +38,14 @@
 //       }
 
 //       const data = await response.json()
-//       setFavorites(data) 
+//       setFavorites(data)
 //     } catch (error) {
 //       console.error("Error fetching user favorites:", error)
 //     }
 //   }
 
 //    useEffect(() => {
-//     fetchUserFavorites() 
+//     fetchUserFavorites()
 //   }, [])
 
 //     useEffect(() => {

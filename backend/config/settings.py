@@ -55,6 +55,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     "http://127.0.0.1:3000",
     "https://uri-phi.vercel.app",
+    "https://uri-keo5rzq78-djenebaas-projects.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

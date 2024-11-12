@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
     "188.165.238.74:8218", 
     "localhost",
     "127.0.0.1",
-    "localhost",
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -61,11 +60,6 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',  
-    'http://127.0.0.1:3000', 
-]
-
-ORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',  
     'http://127.0.0.1:3000', 
 ]

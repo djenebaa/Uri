@@ -75,7 +75,7 @@ Create a `.env` file in the root of the project with the following variables:
     docker-compose down
     ```
 
-The backend will be accessible at `http://localhost:8000`.
+The backend will be accessible at `http://localhost:8218`.
 
 ---
 

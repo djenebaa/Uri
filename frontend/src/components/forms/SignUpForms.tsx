@@ -66,7 +66,7 @@ export function SignUpForm() {
       }
       return errors;
     };
-
+    console.log("CSRF Token:", csrfToken);
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrorMessages(validationErrors);

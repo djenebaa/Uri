@@ -93,9 +93,9 @@ const ShowDetails = () => {
           <path
             d="M30 16H2M2 16L16 30M2 16L16 2"
             stroke="#ffffff"
-            stroke-width="4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
         Return to the list

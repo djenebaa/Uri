@@ -98,9 +98,12 @@ def show_media_details(request, external_id):
             # Handle API errors and show the error
             return JsonResponse({"error": "Media not found on TMDb"}, status=response.status_code)
 
-    is_favorite = UserFavoriteContent.objects.filter(
-        user=request.user, media=media, media_type="tv_show"
-    ).exists()
+    is_favorite = (
+        UserFavoriteContent.objects.filter(
+            user=request.user, media=media, media_type="tv_show"
+        ).exists()
+        if request.user.is_authenticated else False
+    )
 
     return JsonResponse({
         "media": {

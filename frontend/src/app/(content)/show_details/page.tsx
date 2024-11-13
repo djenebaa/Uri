@@ -27,7 +27,7 @@ const ShowDetails = () => {
       if (media_id) {
         try {
           const response = await fetch(
-            `http://188.165.238.74:8218/content_management/media/${media_id}/`,
+            `${process.env.NEXT_PUBLIC_API_URL}/content_management/media/${media_id}/`,
             {
               method: "GET",
               credentials: "include",

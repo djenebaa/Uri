@@ -26,7 +26,7 @@
 //   const fetchUserFavorites = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://188.165.238.74:8218/profile/user/favorites/`,
+//         `${process.env.NEXT_PUBLIC_API_URL}/profile/user/favorites/`,
 //         {
 //           method: "GET",
 //           credentials: "include",

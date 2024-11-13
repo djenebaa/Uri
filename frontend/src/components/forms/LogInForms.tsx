@@ -43,7 +43,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
 
     try {
       const response = await fetch(
-        `http://188.165.238.74:8218/accounts/login/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/accounts/login/`,
         {
           method: "POST",
           body: formData,

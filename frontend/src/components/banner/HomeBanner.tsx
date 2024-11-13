@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   // type CarouselApi,
-} from "@/components/ui/carousel";
+} from "../../components/ui/carousel";
 
 interface Show {
   id: number;
@@ -28,7 +28,7 @@ export default function HomeBanner() {
   const fetchLastShowOfAllGenre = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/content_management/show_type_genres/`,
+        `http://188.165.238.74:8218/content_management/show_type_genres/`,
         {
           method: "GET",
           credentials: "include",
@@ -44,7 +44,7 @@ export default function HomeBanner() {
       const promises = genres.map(
         async (genre: { id: number; name: string }) => {
           const showResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/content_management/external-media/${genre.id}/`,
+            `http://188.165.238.74:8218/content_management/external-media/${genre.id}/`,
             {
               method: "GET",
               credentials: "include",

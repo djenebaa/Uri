@@ -29,7 +29,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       const checkFavoriteStatus = async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/check_favorite_status/tv_show/${media_id}/`,
+            `http://188.165.238.74:8218/user_preferences/check_favorite_status/tv_show/${media_id}/`,
             {
               credentials: "include",
             }
@@ -55,7 +55,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       return;
     }
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/add/tv_show/${media_id}/`,
+      `http://188.165.238.74:8218/user_preferences/add/tv_show/${media_id}/`,
       {
         method: "POST",
         credentials: "include",
@@ -77,7 +77,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       return;
     }
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/remove/tv_show/${media_id}/`,
+      `http://188.165.238.74:8218/user_preferences/remove/tv_show/${media_id}/`,
       {
         method: "POST",
         credentials: "include",

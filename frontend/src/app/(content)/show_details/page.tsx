@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import LikeButton from "@/components/like_dislike/LikeButton";
+import LikeButton from "../../../components/like_dislike/LikeButton";
 import Image from "next/image";
 
 interface Media {
@@ -27,7 +27,7 @@ const ShowDetails = () => {
       if (media_id) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/content_management/media/${media_id}/`,
+            `http://188.165.238.74:8218/content_management/media/${media_id}/`,
             {
               method: "GET",
               credentials: "include",

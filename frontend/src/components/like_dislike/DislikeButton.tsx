@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getCsrfToken } from "@/app/utils/crsf";
-import { useAuth } from "@/components/auth/AuthenticationContext";
+import { getCsrfToken } from "../../app/utils/crsf";
+import { useAuth } from "../../components/auth/AuthenticationContext";
 
 interface RemoveFavoriteButtonProps {
   initialIsFavorited: boolean;
@@ -29,7 +29,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
       const checkFavoriteStatus = async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/check_favorite_status/tv_show/${media_id}/`,
+            `http://188.165.238.74:8218/user_preferences/check_favorite_status/tv_show/${media_id}/`,
             {
               credentials: "include",
             }
@@ -57,7 +57,7 @@ const RemoveFavoriteButton: React.FC<RemoveFavoriteButtonProps> = ({
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user_preferences/remove/tv_show/${media_id}/`,
+      `http://188.165.238.74:8218/user_preferences/remove/tv_show/${media_id}/`,
       {
         method: "POST",
         credentials: "include",

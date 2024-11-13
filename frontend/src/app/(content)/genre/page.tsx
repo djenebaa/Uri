@@ -11,7 +11,7 @@ export default function Genre() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/content_management/show_type_genres`,
+        `http://188.165.238.74:8218/content_management/show_type_genres`,
         {
           method: "GET",
           credentials: "include",
@@ -24,7 +24,7 @@ export default function Genre() {
 
       const data = await response.json();
       setGenres(data);
-      console.log(process.env.NEXT_PUBLIC_API_URL);
+      // console.log(process.env.NEXT_PUBLIC_API_URL);
     } catch (error) {
       console.error("Error fetching genres:", error);
     } finally {

@@ -30,7 +30,7 @@ function ShowsByGenre() {
     const fetchTvShow = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/content_management/external-media/${genre_id}/`,
+          `http://188.165.238.74:8218/content_management/external-media/${genre_id}/`,
           {
             method: "GET",
             credentials: "include",
@@ -54,7 +54,7 @@ function ShowsByGenre() {
     const fetchGenres = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/content_management/show_type_genres/`,
+          `http://188.165.238.74:8218/content_management/show_type_genres/`,
           {
             method: "GET",
             credentials: "include",

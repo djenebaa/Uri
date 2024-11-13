@@ -28,7 +28,7 @@ export default function Profile() {
     const csrfToken = await getCsrfToken();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/accounts/logout/`,
+        `http://188.165.238.74:8218/accounts/logout/`,
         {
           method: "POST",
           credentials: "include",
@@ -55,7 +55,7 @@ export default function Profile() {
   const fetchFavorites = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/user/favorites`,
+        `http://188.165.238.74:8218/profile/user/favorites`,
         {
           method: "GET",
           credentials: "include",

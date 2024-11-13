@@ -11,7 +11,7 @@ const AuthChecker: React.FC = () => {
     const checkAuthStatus = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/accounts/auth-status/`,
+          `http://188.165.238.74:8218/accounts/auth-status/`,
           {
             credentials: "include",
           }

@@ -9,14 +9,14 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from "@/components/ui/card";
+} from "../../components/ui/card";
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Label } from "../../components/ui/label";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getCsrfToken } from "@/app/utils/crsf";
+import { getCsrfToken } from "../../app/utils/crsf";
 import { useAuth } from "../auth/AuthenticationContext";
 
 interface LogInFormProps {
@@ -43,7 +43,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/accounts/login/`,
+        `http://188.165.238.74:8218/accounts/login/`,
         {
           method: "POST",
           body: formData,

@@ -76,7 +76,7 @@ export function SignUpForm() {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/accounts/signup/`,
+      `http://188.165.238.74:8218/accounts/signup/`,
       {
         method: "POST",
         headers: {

@@ -1,5 +1,5 @@
 "use client"
-import { LogInForm } from "@/components/forms/LogInForms";
+import { LogInForm } from "../../../components/forms/LogInForms";
 import { useState } from "react";
 
 export default function LogInRoute() {

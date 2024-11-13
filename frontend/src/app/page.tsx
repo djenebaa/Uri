@@ -1,9 +1,10 @@
 "use client";
 // import { useEffect, useState } from "react";
 // import { useRouter } from "next/navigation";
-import AuthChecker from "@/components/auth/AuthChecker";
-import HomeBanner from "@/components/banner/HomeBanner";
+import AuthChecker from "../components/auth/AuthChecker";
+
 import Link from "next/link";
+import HomeBanner from "../components/banner/HomeBanner";
 
 export default function Home() {
   // const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);

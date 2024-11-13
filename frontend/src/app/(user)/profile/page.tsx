@@ -1,13 +1,14 @@
 "use client";
-import AuthChecker from "@/components/auth/AuthChecker";
-import { getCsrfToken } from "@/app/utils/crsf";
+
+import { getCsrfToken } from "../../../app/utils/crsf";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth/AuthenticationContext";
+import { useAuth } from "../../../components/auth/AuthenticationContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 // import ProfileBanner from "@/components/banner/ProfileBanner";
 import Link from "next/link";
-import DislikeButton from "@/components/like_dislike/DislikeButton";
+import DislikeButton from "../../../components/like_dislike/DislikeButton";
+import AuthChecker from "../../../components/auth/AuthChecker";
 
 interface FavoriteMedia {
   id: number;

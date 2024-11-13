@@ -77,7 +77,7 @@ class SignUpTest(BaseTest):
         self.assertEqual(response.status_code, 400)
         self.assertIn('errors', response.json()) 
         self.assertIn('username', response.json()['errors']) 
-        self.assertEqual(response.json()['errors']['username'], 'This username is already taken.')
+        self.assertEqual(response.json()['errors']['username'][0], 'This username is already taken.')
 
         # Check if email already taken
         response = self.client.post(self.url, data={
@@ -89,6 +89,6 @@ class SignUpTest(BaseTest):
         self.assertEqual(response.status_code, 400)
         self.assertIn('errors', response.json())
         self.assertIn('email', response.json()['errors'])
-        self.assertEqual(response.json()['errors']['email'], 'This email is already registered.')
+        self.assertEqual(response.json()['errors']['email'][0], 'This email is already registered.')
         
     

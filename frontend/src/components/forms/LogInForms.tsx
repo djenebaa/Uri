@@ -108,8 +108,12 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <Button type="submit">Log In</Button>
-            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+            <Button type="submit" className="text-white px-4 py-2 rounded-md transition-colors duration-300 hover:bg-slate-700 active:bg-pink-700" >Log In</Button>
+            {errorMessage && (
+              <p className="error-message mt-2 p-1">
+                {errorMessage}
+              </p>
+            )}
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

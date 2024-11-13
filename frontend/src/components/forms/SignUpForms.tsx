@@ -135,7 +135,7 @@ export function SignUpForm() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-                {errorMessages.username && <p className="text-red-500">{errorMessages.username}</p>}
+                {errorMessages.username && <p className="error-message">{errorMessages.username}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -147,7 +147,7 @@ export function SignUpForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                {errorMessages.email && <p className="text-red-500">{errorMessages.email}</p>}
+                {errorMessages.email && <p className="error-message">{errorMessages.email}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -159,7 +159,7 @@ export function SignUpForm() {
                   value={password1}
                   onChange={(e) => setPassword1(e.target.value)}
                 />
-                {errorMessages.password1 && <p className="text-red-500">{errorMessages.password1}</p>}
+                {errorMessages.password1 && <p className="error-message">{errorMessages.password1}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password_confirmation">Password Confirmation</Label>
@@ -171,14 +171,14 @@ export function SignUpForm() {
                   value={password2}
                   onChange={(e) => setPassword2Confirmation(e.target.value)}
                 />
-                {errorMessages.password2 && <p className="text-red-500">{errorMessages.password2}</p>}
+                {errorMessages.password2 && <p className="error-message">{errorMessages.password2}</p>}
               </div>
             </CardContent>
             <CardFooter className="flex flex-col">
-              <Button type="submit">Register</Button>
+              <Button type="submit" className="text-white px-4 py-2 rounded-md transition-colors duration-300 hover:bg-slate-700 active:bg-pink-700" >Register</Button>
             </CardFooter>
           </Card>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {error && <p className="error-message mt-2">{error}</p>}
           <div className="mt-4 text-center text-sm">
             Have an account?
             <Link className="underline ml-2" href="/login">Log In</Link>

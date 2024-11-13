@@ -40,6 +40,7 @@ export default function Profile() {
       if (response.ok) {
         setIsAuthenticated(false);
         router.push("/login");
+        return null
       } else {
         console.error("Logout failed");
       }

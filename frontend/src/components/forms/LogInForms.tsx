@@ -27,6 +27,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
   const router = useRouter();
   const { setUsername } = useAuth();
   const [csrfToken, setCsrfToken] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -66,11 +67,13 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
         setIsAuthenticated(true);
         router.push("/");
         return;
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.error || "An error occurred. Please try again.");
       }
-
-      throw new Error(`HTTP error! Status: ${response.status}`);
     } catch (error) {
       console.error("Error during login:", error);
+      setErrorMessage("An unexpected error occurred. Please try again.");
     }
   }
 
@@ -106,6 +109,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button type="submit">Log In</Button>
+            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

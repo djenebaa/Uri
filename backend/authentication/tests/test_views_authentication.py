@@ -65,7 +65,30 @@ class SignUpTest(BaseTest):
         self.assertIn('csrfToken', response.json())
         
     def test_cannot_register_duplicate_user(self):
-        User.objects.create_user(username='testbetauser', email='testemail@gmail.com', password='password123')
-        response = self.client.post(self.url, data=self.valid_data)
+        User.objects.create_user(username=self.valid_data['username'], email=self.valid_data['email'], password=self.valid_data['password1'])
+
+        # Check if username already taken
+        response = self.client.post(self.url, data={
+            'username': self.valid_data['username'],  # Same username
+            'email': 'newemail@example.com',  # A valid new email address
+            'password1': 'newpassword123',
+            'password2': 'newpassword123'
+        })
         self.assertEqual(response.status_code, 400)
-        self.assertIn('username', response.json()['errors'])
+        self.assertIn('errors', response.json()) 
+        self.assertIn('username', response.json()['errors']) 
+        self.assertEqual(response.json()['errors']['username'], 'This username is already taken.')
+
+        # Check if email already taken
+        response = self.client.post(self.url, data={
+            'username': 'newusername',  # A valid new username
+            'email': self.valid_data['email'],  # Same email
+            'password1': 'newpassword123',
+            'password2': 'newpassword123'
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('errors', response.json())
+        self.assertIn('email', response.json()['errors'])
+        self.assertEqual(response.json()['errors']['email'], 'This email is already registered.')
+        
+    

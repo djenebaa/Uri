@@ -46,11 +46,15 @@ def SignUp(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         
+        errors = {}
         if User.objects.filter(username=username).exists():
-            return JsonResponse({"error": "This username is already taken."}, status=400)
-        
+            errors['username'] = ['This username is already taken.']
         if User.objects.filter(email=email).exists():
-            return JsonResponse({"error": "This email is already taken."}, status=400)
+            errors['email'] = ['This email is already registered.']
+            
+        if errors:
+            return JsonResponse({'errors': errors}, status=400)
+
         
         if form.is_valid():
             user = form.save()

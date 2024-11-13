@@ -98,7 +98,7 @@ export default function HomeBanner() {
         <CarouselContent>
           {shows.length > 0 ? (
             shows.map((show) => (
-              <CarouselItem key={show.id}>
+              <CarouselItem key={`${show.id}-${show.genre}`}>
                 <div className="flex flex-col items-center">
                   <Image
                     src={

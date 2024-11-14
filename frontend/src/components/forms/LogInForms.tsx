@@ -116,7 +116,7 @@ export function LogInForm({ setIsAuthenticated }: LogInFormProps) {
             )}
           </CardFooter>
         </Card>
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm text-white">
           Don&apos;t have an account?
           <Link className="underline ml-2" href="signup">
             Sign Up

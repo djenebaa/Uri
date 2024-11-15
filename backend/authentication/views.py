@@ -40,6 +40,7 @@ def Login(request):
     # If it's not a POST request, return a 405 Method Not Allowed response
     return JsonResponse({"error": "Invalid method"}, status=405)
 
+@csrf_exempt
 def SignUp(request):
     if request.method == "POST":
         form = UserCreateForm(request.POST)

@@ -9,8 +9,8 @@ from .models import User
 
 @ensure_csrf_cookie
 def get_csrf_token(request):
-    csrf_token = request.META.get("CSRF_COOKIE", "")
-    return JsonResponse({"csrfToken": csrf_token})
+    csrf_token = get_token(request)
+    return JsonResponse({"csrfToken": csrf_token}) 
 @login_required  # This automatically detect is the user is logged in if true redirect to home else it will redirect to login
 def home(request):
     return render(request, "home.html", {})

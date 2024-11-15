@@ -24,13 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY', 'fallback_value')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    "188.165.238.74",   
+ALLOWED_HOSTS = [ 
+    "188.165.238.74",
     "188.165.238.74:8218", 
-    "localhost",
-    "127.0.0.1",
     "188.165.238.74:3218",
 ]
 
@@ -52,8 +50,6 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", 
-    "http://127.0.0.1:3000",
     "http://188.165.238.74:3218",
 ]
 
@@ -61,12 +57,12 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',  
-    'http://127.0.0.1:3000', 
-    'http://188.165.238.74:3218',
+    "http://188.165.238.74:3218",
 ]
+
+
 CSRF_COOKIE_SAMESITE = 'None'  
-CSRF_COOKIE_SECURE = True      
+CSRF_COOKIE_SECURE = False      
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

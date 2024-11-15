@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     "188.165.238.74:8218", 
     "localhost",
     "127.0.0.1",
+    "188.165.238.74:3218",
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -53,15 +54,16 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     "http://127.0.0.1:3000",
-    "https://uri-phi.vercel.app",
-    "https://uri-keo5rzq78-djenebaas-projects.vercel.app",
+    "http://188.165.238.74:3218",
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',  
     'http://127.0.0.1:3000', 
+    'http://188.165.238.74:3218',
 ]
 CSRF_COOKIE_SAMESITE = 'None'  
 CSRF_COOKIE_SECURE = True      

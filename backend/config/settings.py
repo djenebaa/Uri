@@ -27,13 +27,12 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', 'fallback_value')
 DEBUG = True
 
 ALLOWED_HOSTS = [ 
-    "188.165.238.74",
-    "188.165.238.74:8218", 
-    "188.165.238.74:3218",
+    '188.165.238.74',
+    '188.165.238.74:8218', 
+    '188.165.238.74:3218',
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,14 +53,20 @@ CORS_ALLOWED_ORIGINS = [
     "http://188.165.238.74",
 ]
 
-
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://188.165.238.74:3218",
-     "http://188.165.238.74",
+    'http://188.165.238.74:3218',
+    'http://188.165.238.74',
 ]
 
+CORS_ALLOW_METHODS = (
+    "GET",
+    "POST",
+    "DELETE",
+    "PUT",
+    "OPTIONS",
+)
 
 CSRF_COOKIE_SAMESITE = 'None'  
 CSRF_COOKIE_SECURE = False      
